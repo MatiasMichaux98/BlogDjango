@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <title>Document</title>
+</head>
+<body>
+   <div>
+    <h1>vista postDetail</h1>
+    <h1>{{ post.title }}</h1>
+    <p>{{ post.content }}</p>
+    <img style="width: 300px; height: 300px;" src="{{ object.image.url }}" alt="">
+
+    <p>
+        <span>{{ object.get_like_count}}</span>
+        <span>{{ object.get_comment_count}}</span>
+    </p>
+    <p>
+        Posted {{ object.publish_date|timesince }} ago
+    </p>
+    <a href="{{object.get_like_url }}">
+        <i class="fas fa-thumbs-up"></i> 
+        {{object.get_like_url}}
+    </a>
+
+  
+        <h4> leave a comment below</h4>
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p}}
+            <button type="submit">comment</button>
+        </form>
+        <hr>
+        <h5>commets</h5>
+        {% for comment in object.comments %}
+            <div>
+                <p>{{comment.content}}
+                <br>
+                <small>{{comment.timestamp|timesince}}</small>
+                </p>
+            </div>
+        {% endfor %}
+        
+   </div>
+</body>
+</html>

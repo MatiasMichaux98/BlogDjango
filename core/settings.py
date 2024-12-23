@@ -37,6 +37,7 @@ DJANGO_APPS = [
 
 PROJECT_APPS = [
     'apps.Posts',
+    'apps.authentication',
 
 
 ]
@@ -121,6 +122,8 @@ TIME_ZONE = "America/Argentina/Buenos_Aires"
 USE_I18N = True
 
 USE_TZ = False
+
+AUTH_USER_MODEL = 'authentication.User'
 
 
 # Static files (CSS, JavaScript, Images)
