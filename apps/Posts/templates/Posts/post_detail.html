@@ -1,48 +1,71 @@
+{% extends 'base.html' %}
+{% block container %}
+{% load static tailwind_tags %}
+
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    {% tailwind_css %}
+
     <title>Document</title>
 </head>
 <body>
-   <div>
-    <h1>vista postDetail</h1>
-    <h1>{{ post.title }}</h1>
-    <p>{{ post.content }}</p>
-    <img style="width: 300px; height: 300px;" src="{{ object.image.url }}" alt="">
-
-    <p>
-        <span>{{ object.get_like_count}}</span>
-        <span>{{ object.get_comment_count}}</span>
-    </p>
-    <p>
-        Posted {{ object.publish_date|timesince }} ago
-    </p>
-    <a href="{{object.get_like_url }}">
-        <i class="fas fa-thumbs-up"></i> 
-        {{object.get_like_url}}
-    </a>
-
-  
-        <h4> leave a comment below</h4>
-        <form method="POST">
-            {% csrf_token %}
-            {{ form.as_p}}
-            <button type="submit">comment</button>
-        </form>
-        <hr>
-        <h5>commets</h5>
-        {% for comment in object.comments %}
-            <div>
-                <p>{{comment.content}}
-                <br>
-                <small>{{comment.timestamp|timesince}}</small>
+    <div class="w-1/2 mx-auto mt-10 lg:flex">
+        <div class="h-100 lg:w-48  flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden" title="Woman holding a mug">
+            <img class=" rounded-l-lg" src="{{ object.image.url }}" alt="">
+        </div>
+        <div class="w-full bg-[#0D1017] rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-around leading-normal">
+            <div class="text-white ">
+                <p class="text-sm  flex items-center">  
+                    <a href="{{ object.get_like_url }}">
+                        <i class="far fa-heart" style="color:rgb(249, 3, 3);"></i> Like
+                        <span>{{ object.get_like_count }}</span>
+                    </a>
+                   <a href="">
+                    <i class="fa-regular fa-comment ml-3"></i>
+                    <span>{{ object.get_comment_count}}</span>
+                   </a>
                 </p>
+                <div class="text-gray-900 font-bold text-xl mb-2">            
+                    <h1 class="text-2xl text-white ">{{ post.title }}</h1>
+                </div>
+                <p class="text-gray-700 text-base text-white ">{{ post.content }}</p>
             </div>
-        {% endfor %}
-        
-   </div>
+            <div class="text-white ">            
+                <h5><span>{{ object.get_comment_count}}</span>  Comentarios</h5>
+                <div class="h-32 overflow-y-auto">
+                     {% for comment in object.comments %}
+                        <div >
+                            <p class="">{{comment.content}}
+                            <br>
+                            <small>{{comment.timestamp|timesince}}</small>
+                            </p>
+                        </div>
+                    {% endfor %}
+                </div>
+                <form method="POST" class="max-w-sm mx-auto">
+                    {% csrf_token %}
+                    <div class="flex flex-col">
+                        <div class="">
+                            <label for="message" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your message</label>
+                           <textarea id="message" name="content" rows="4" class=" w-[300px] h-[50px] resize-none block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Leave a comment..."></textarea>
+                           </div>
+                         
+                               <button type="submit" class="bg-line mt-4 w-[30%] rounded-lg">
+                                Comentar
+                             </button>
+                           
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+    
 </body>
 </html>
+{% endblock %}

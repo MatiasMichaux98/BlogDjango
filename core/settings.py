@@ -43,11 +43,12 @@ PROJECT_APPS = [
 ]
 
 DJANGO_PARTY_APPS = [
-    
-
+    'tailwind',
+    'theme',
+    'django_browser_reload',
 ]
 INSTALLED_APPS = DJANGO_APPS + PROJECT_APPS + DJANGO_PARTY_APPS
-
+TAILWIND_APP_NAME = 'theme'
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
@@ -56,8 +57,12 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "django_browser_reload.middleware.BrowserReloadMiddleware",
 ]
-
+INTERNAL_IPS = [
+    "127.0.0.1",
+]
+NPM_BIN_PATH = "C:/Program Files/nodejs/npm.cmd"
 ROOT_URLCONF = "core.urls"
 
 TEMPLATES = [
@@ -129,11 +134,13 @@ AUTH_USER_MODEL = 'authentication.User'
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = "static/"
-MEDIA_URL = 'media/'
+STATIC_URL = '/static/'
+MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 STATIC_ROOT = BASE_DIR / "staticfiles"
-
+STATICFILES_DIRS = [
+    BASE_DIR / "static", 
+]
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 

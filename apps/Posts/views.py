@@ -51,3 +51,5 @@ def like(request, slug):
     Like.objects.create(user=request.user, post=post)
     return redirect('detail', slug)
 
+def Base(request):
+    return render(request, 'base/base.html')
