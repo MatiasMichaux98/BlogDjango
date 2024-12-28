@@ -8,7 +8,8 @@ from django.conf.urls.static import static
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("__reload__/", include("django_browser_reload.urls")),
-    path('',include('apps.Posts.urls'))
+    path('',include('apps.Posts.urls')),
+    path('accounts/',include('apps.authentication.urls')),
 
 ]
 if settings.DEBUG:

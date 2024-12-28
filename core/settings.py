@@ -49,6 +49,7 @@ DJANGO_PARTY_APPS = [
 ]
 INSTALLED_APPS = DJANGO_APPS + PROJECT_APPS + DJANGO_PARTY_APPS
 TAILWIND_APP_NAME = 'theme'
+AUTH_USER_MODEL = 'authentication.User'
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",

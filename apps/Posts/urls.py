@@ -3,6 +3,7 @@ from apps.Posts import views
 from django.conf import settings
 from django.conf.urls.static import static
 
+app_name = 'posts'
 urlpatterns = [
     path('',views.PostListView.as_view(), name="list"),
     path('create/',views.PostCreateView.as_view(), name="create"),

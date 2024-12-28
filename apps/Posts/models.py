@@ -16,11 +16,11 @@ class Post(models.Model):
         return self.title
     
     def get_absolute_url(self):
-        return reverse("detail",kwargs={
+        return reverse("posts:detail",kwargs={
             "slug": self.slug
         })
     def get_like_url(self):
-        return reverse("like",kwargs={
+        return reverse("posts:like",kwargs={
             "slug": self.slug
         })
     
