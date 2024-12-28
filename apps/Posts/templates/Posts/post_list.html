@@ -13,11 +13,17 @@
 <body class="bg-black">
     <div class=" p-2 md:p-5 mt-[80px]">
         <div class="columns-1 lg:gap-4 sm:columns-2 lg:columns-3 xl:columns-4 mt-[40px]">
-            {% for object in object_list %}
-            <a href="{{ object.get_absolute_url }}">
-                <img class="mb-2 rounded-lg outline outline-2 outline-line outline-offset-[-10px] " src="{{ object.image.url }}" alt="">
-            </a>
-            {% endfor %}
+            {% if object_list %}
+                {% for object in object_list %}
+                    <a href="{{ object.get_absolute_url }}">
+                        <img class="mb-2 rounded-lg outline outline-2 outline-line outline-offset-[-10px] " src="{{ object.image.url }}" alt="">
+                    </a>
+                {% endfor %}
+            {% else %}
+                <div class="flex justify-center items-center  h-32"> 
+                    <p class=" text-center text-line ">No se encontró resultados</p>
+                </div>
+            {% endif %}
         </div>
     </div>
 </body>

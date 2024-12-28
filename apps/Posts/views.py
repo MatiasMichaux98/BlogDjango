@@ -4,6 +4,8 @@ from .models import Post, Like
 from .forms import PostForm, CommentForm
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse_lazy
+from django.db.models import Q
+
 
 
 # Create your views here.
@@ -72,5 +74,16 @@ def like(request, slug):
     Like.objects.create(user=request.user, post=post)
     return redirect('posts:detail', slug=slug)
 
-def Base(request):
-    return render(request, 'base/base.html')
+
+class SearchPost(ListView):
+    model = Post
+
+    def get_queryset(self):
+        query = self.request.GET.get("q")
+        if query:
+            object_list = Post.objects.filter(
+                Q(title__icontains=query) | Q(content__icontains=query)
+            )
+        else:
+            object_list = Post.objects.none()
+        return object_list
