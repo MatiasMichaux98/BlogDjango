@@ -46,7 +46,7 @@
         
       </div>
     </header>
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-10">
       {% for post in Publicaciones %}
           <div class="relative overflow-hidden rounded-lg shadow-lg">
               <img class="imgpost object-cover w-full h-48 md:h-64 lg:h-80 transition-transform duration-300 transform hover:scale-105" src="{{ post.image.url }}" alt="Post image" />
