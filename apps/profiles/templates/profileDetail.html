@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% load static %} 
+
+{% block container %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Perfil de Usuario</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  </head>
+  <body class="bg-gray-100">
+
+    <header class="bg-[#0D1017] shadow-md p-4">
+      <div class="container mx-auto max-w-5xl flex items-center">
+        
+        <!-- Imagen de perfil -->
+        <div class="flex-none w-32 h-32 rounded-full overflow-hidden border-4 border-gray-200 mr-6">
+          {% if profile.image %}
+            <img src="{{ profile.image.url }}" alt="Imagen de perfil" class="w-full h-full object-cover" />
+          {% else %}
+          <img src="/media/profiles/default.png" alt="Imagen de perfil por defecto" class="w-full h-full object-cover" />
+          {% endif %}
+        </div>
+
+        <!-- Información del perfil -->
+        <div class="flex-1">
+          <div class="flex items-center justify-between">
+            <p class="text-2xl font-semibold text-gray-800">{{ profile.full_name }}</p>
+            <div class="flex flex-col gap-2">
+              <a href="{% url 'profile:profile' %}" class="text-blue-500 text-sm font-semibold hover:text-blue-700 transition-colors">Editar Perfil</a>
+              <a href="{% url 'posts:create' %}" class="text-blue-500 text-sm font-semibold hover:text-blue-700 transition-colors">Crear Post</a>
+            </div>
+          </div>
+          <p class="text-gray-600 mt-2">{{ profile.bio }}</p>
+          
+          <!-- Estadísticas del perfil (como en Instagram) -->
+          <div class="flex mt-6 space-x-12">
+            <div class="text-center">
+              <p class="font-semibold text-gray-800">{{Publicaciones.count}}</p>
+              <p class="text-sm text-gray-500">Publicaciones</p>
+            </div>
+          </div>
+        </div>
+        
+      </div>
+    </header>
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+      {% for post in Publicaciones %}
+          <div class="relative overflow-hidden rounded-lg shadow-lg">
+              <img class="imgpost object-cover w-full h-48 md:h-64 lg:h-80 transition-transform duration-300 transform hover:scale-105" src="{{ post.image.url }}" alt="Post image" />
+              <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-2 text-white text-xs sm:text-sm md:text-base">
+                  <!-- Aquí puedes agregar el texto o información del post, por ejemplo: -->
+                  <p class="truncate">{{ post.title }}</p>
+                  <div class="flex justify-end gap-2">
+                    <a href="{% url 'posts:updated' post.slug %}">
+                      <button>Editar</button>
+                    </a>
+                    <a href="{% url 'posts:delete' post.slug %}">
+                      <button>Eliminar</button>
+                    </a>
+                  </div>
+              </div>
+          </div>
+      {% endfor %}
+  </div>
+  
+  </body>
+</html>
+{% endblock %}

@@ -1,3 +1,7 @@
+{% extends 'base.html' %}
+{% block container %}
+{% load static tailwind_tags %}
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,11 +10,43 @@
     <title>Document</title>
 </head>
 <body>
-    
-    <form method="POST" enctype="multipart/form-data">
+    <h1 class="text-4xl font-bold text-center text-gray-800 mb-8">Vista de {{ view_type }}</h1>
+
+    <form method="POST" enctype="multipart/form-data" class="max-w-2xl mx-auto bg-white p-8 rounded-xl shadow-2xl space-y-6">
         {% csrf_token %}
-        {{form.as_p}}
-        <button type="submit"> submit</button>
+        
+        <!-- Campo de Título -->
+        <div class="space-y-2">
+            <label for="title" class="block text-lg font-medium text-gray-700">Title:</label>
+            <input type="text" id="title" name="title" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" value="{{ form.title.value }}">
+        </div>
+    
+        <!-- Campo de Contenido -->
+        <div class="space-y-2">
+            <label for="content" class="block text-lg font-medium text-gray-700">Content:</label>
+            <textarea id="content" name="content" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">{{ form.content.value }}</textarea>
+        </div>
+    
+        <!-- Campo de Imagen -->
+        <div class="space-y-2">
+            <label for="image" class="block text-lg font-medium text-gray-700">Image:</label>
+            <input type="file" id="image" name="image" class="w-full py-2 px-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500">
+            <p class="text-sm text-gray-500 mt-1">Sin archivos seleccionados</p>
+        </div>
+    
+        <!-- Campo de Slug -->
+        <div class="space-y-2">
+            <label for="slug" class="block text-lg font-medium text-gray-700">Slug:</label>
+            <input type="text" id="slug" name="slug" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" value="{{ form.slug.value }}">
+        </div>
+    
+        <!-- Botón de submit -->
+        <button type="submit" class="w-full py-3 mt-6 bg-indigo-600 text-white font-semibold rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-50 transition">
+            {{ view_type }}
+        </button>
     </form>
+    
+    
 </body>
 </html>
+{% endblock %}

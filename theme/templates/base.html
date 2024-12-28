@@ -23,27 +23,33 @@
 					<div class="header-profile">
 						<div class="">
 						<label for="profile-menu" class="flex items-center space-x-2">
-						<img class="w-[30px] h-[30px] rounded-full cursor-pointer" src="https://images.unsplash.com/photo-1600353068440-6361ef3a86e8?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" alt="Profile Image">
+						<img class="w-[30px] h-[30px] rounded-full cursor-pointer" src="{{user.profile.image.url }}" alt="Profile Image">
 						<i class="fa-duotone fa-solid fa-caret-down text-line cursor-pointer"></i>
 						</label>
 
 						<input type="checkbox" id="profile-menu" class="hidden peer">
 						<div class="profile-dropdown hidden peer-checked:block absolute bg-white shadow-lg rounded-lg mt-2 w-40 right-40 z-100">
-							<a href="#" class="block px-4 py-2 text-gray-800 hover:bg-gray-200">Perfil</a>
-							<a href="#" class="block px-4 py-2 text-gray-800 hover:bg-gray-200">Cerrar sesión</a>
+							<a href="{% url 'authentication:logout' %}" class="block px-4 py-2 text-gray-800 hover:bg-gray-200">Cerrar sesión</a>
 						</div>
 						</div>
 					</div>
 				  {% else %}
-				  	<a href="">Login</a>
-					<a href="">Register</a>
+				  	<div class="text-line">
+						<a class="" href="{% url 'authentication:accountslogin' %}">Login</a>
+						<a class="ml-5" href="{% url 'authentication:register' %}">Register</a>
+					</div>
 				  {% endif  %}
 				  
 				  
 			</div>
 			<div class="flex justify-center gap-10 items-center ">
-				<a class="text-slate-300 p-2 hover:bg-line hover:text-black rounded-lg" href="#">Inicio</a>
-				<a class="text-slate-300 p-2 hover:bg-line hover:text-black rounded-lg" href="#">Favorito</a>
+				{% if user.is_authenticated %}
+					<a class="text-slate-300 p-2 hover:bg-line hover:text-black rounded-lg" href="{% url 'posts:list' %}">Inicio</a>
+					<a class="text-slate-300 p-2 hover:bg-line hover:text-black rounded-lg" href="{% url 'profile:profileDetail' %}">Perfil</a>
+				{% else %}
+					<a class="text-slate-300 p-2 hover:bg-line hover:text-black rounded-lg" href="{% url 'posts:list' %}">Inicio</a>
+				{% endif %}
+							
 			</div>
 		   </div>
 		  

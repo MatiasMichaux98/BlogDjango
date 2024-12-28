@@ -5,6 +5,7 @@ from django.shortcuts import reverse
 # Create your models here.
 
 class Post(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=80)
     content = models.TextField()
     image = models.ImageField(upload_to='imagePost')

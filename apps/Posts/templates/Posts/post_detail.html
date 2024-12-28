@@ -14,55 +14,57 @@
     <title>Document</title>
 </head>
 <body>
-    <div class="w-1/2 mx-auto mt-10 lg:flex">
-        <div class="h-100 lg:w-48  flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden" title="Woman holding a mug">
-            <img class=" rounded-l-lg" src="{{ object.image.url }}" alt="">
+    <div class="w-full lg:w-1/2 mx-auto mt-10 lg:flex">
+        <!-- Imagen -->
+        <div class="w-full lg:w-80 h-48 lg:h-auto bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden" title="Woman holding a mug">
+            <img class="w-full h-full object-cover rounded-l-lg" src="{{ object.image.url }}" alt="Image Description">
         </div>
+        
+        <!-- Contenido -->
         <div class="w-full bg-[#0D1017] rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-around leading-normal">
-            <div class="text-white ">
-                <p class="text-sm  flex items-center">  
+            <div class="text-white">
+                <p class="text-sm flex items-center">
                     <a href="{{ object.get_like_url }}">
                         <i class="far fa-heart" style="color:rgb(249, 3, 3);"></i> Like
                         <span>{{ object.get_like_count }}</span>
                     </a>
-                   <a href="">
-                    <i class="fa-regular fa-comment ml-3"></i>
-                    <span>{{ object.get_comment_count}}</span>
-                   </a>
+                    <a href="">
+                        <i class="fa-regular fa-comment ml-3"></i>
+                        <span>{{ object.get_comment_count }}</span>
+                    </a>
                 </p>
-                <div class="text-gray-900 font-bold text-xl mb-2">            
-                    <h1 class="text-2xl text-white ">{{ post.title }}</h1>
+                <div class="text-gray-900 font-bold text-xl mb-2">
+                    <div class="flex">
+                        <img class="w-[30px] h-[30px] rounded-full cursor-pointer" src="{{ post.user.profile.image.url }}" alt="User profile image">
+                        <h1 class="text-2xl text-white">{{ post.title }}</h1>
+                    </div>
                 </div>
-                <p class="text-gray-700 text-base text-white ">{{ post.content }}</p>
+                <p class="text-gray-700 text-base text-white">{{ post.content }}</p>
             </div>
-            <div class="text-white ">            
-                <h5><span>{{ object.get_comment_count}}</span>  Comentarios</h5>
+            <div class="text-white">
+                <h5><span>{{ object.get_comment_count }}</span> Comentarios</h5>
                 <div class="h-32 overflow-y-auto">
-                     {% for comment in object.comments %}
-                        <div >
-                            <p class="">{{comment.content}}
-                            <br>
-                            <small>{{comment.timestamp|timesince}}</small>
-                            </p>
+                    {% for comment in object.comments %}
+                        <div>
+                            <div class="flex">
+                                <img class="w-[30px] h-[30px] rounded-full cursor-pointer" src="{{comment.user.profile.image.url }}" alt="User profile image">
+                                <p>{{ comment.content }}</p>
+                            </div>
+                            <small>{{ comment.timestamp|timesince }}</small>
                         </div>
                     {% endfor %}
                 </div>
                 <form method="POST" class="max-w-sm mx-auto">
                     {% csrf_token %}
                     <div class="flex flex-col">
-                        <div class="">
-                            <label for="message" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your message</label>
-                           <textarea id="message" name="content" rows="4" class=" w-[300px] h-[50px] resize-none block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Leave a comment..."></textarea>
-                           </div>
-                         
-                               <button type="submit" class="bg-line mt-4 w-[30%] rounded-lg">
-                                Comentar
-                             </button>
-                           
+                        <label for="message" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your message</label>
+                        <textarea id="message" name="content" rows="4" class="w-full h-[50px] resize-none block p-2.5 text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Leave a comment..."></textarea>
+                        <button type="submit" class="bg-line mt-4 w-[30%] rounded-lg">
+                            Comentar
+                        </button>
                     </div>
                 </form>
             </div>
-
         </div>
     </div>
     
